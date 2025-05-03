@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Edit Video</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Edit {{ video.title }}</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{ video.title }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3">{{ video.description }}</textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="video_file" class="form-label">New Video File (leave empty to keep current)</label>
+                            <input type="file" class="form-control" id="video_file" name="video_file" accept="video/*">
+                            {% if video.video_url %}
+                            <div class="mt-2">
+                                <video controls class="w-100">
+                                    <source src="{{ video.video_url }}" type="video/mp4">
+                                    Your browser does not support the video element.
+                                </video>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="thumbnail" class="form-label">New Thumbnail (leave empty to keep current)</label>
+                            <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
+                            {% if video.thumbnail %}
+                            <div class="mt-2">
+                                <img src="{{ video.thumbnail }}" alt="{{ video.title }}" class="img-fluid" style="max-width: 200px;">
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('admin.manage_videos') }}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Update Video</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

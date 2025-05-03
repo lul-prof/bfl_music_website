@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Admin Dashboard</h1>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="admin-stats">
+                <h4>Total Music</h4>
+                <h2>{{ total_music }}</h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="admin-stats">
+                <h4>Total Videos</h4>
+                <h2>{{ total_videos }}</h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="admin-stats">
+                <h4>Total News</h4>
+                <h2>{{ total_news }}</h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="admin-stats">
+                <h4>Total Payments</h4>
+                <h2>{{ total_payments }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Monthly Donations</h4>
+                </div>
+                <div class="card-body">
+                    <canvas id="statsChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Recent Payments</h4>
+                </div>
+                <div class="card-body">
+                    {% for payment in recent_payments %}
+                    <div class="admin-card">
+                        <p><strong>Amount:</strong> {{ payment.amount|format_currency }}</p>
+                        <p><strong>Type:</strong> {{ payment.payment_type }}</p>
+                        <p><strong>Status:</strong> {{ payment.status }}</p>
+                        <small>{{ payment.created_at|format_datetime }}</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    initAdminCharts();
+</script>
+{% endblock %}

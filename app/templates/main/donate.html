@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Support Our Music</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>PayPal Payment</h4>
+                            <div class="form-group mb-3">
+                                <label for="paypal-amount">Amount ($)</label>
+                                <input type="number" class="form-control" id="paypal-amount" min="1" step="0.01">
+                            </div>
+                            <div id="paypal-button-container"></div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h4>M-Pesa Payment</h4>
+                            <div class="form-group mb-3">
+                                <label for="mpesa-phone">Phone Number</label>
+                                <input type="text" class="form-control" id="mpesa-phone" placeholder="254XXXXXXXXX">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="mpesa-amount">Amount (KES)</label>
+                                <input type="number" class="form-control" id="mpesa-amount" min="1">
+                            </div>
+                            <button onclick="processMPesaPayment()" class="btn btn-success">Pay with M-Pesa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
+<script>
+    const amount = document.getElementById('paypal-amount').value;
+    processPayPalPayment(amount);
+</script>
+{% endblock %}

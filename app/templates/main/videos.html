@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Video Gallery</h1>
+    <div class="row">
+        {% for video in video_list %}
+        <div class="col-md-6 mb-4">
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe src="{{ video.video_url }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="card-body mt-2">
+                    <h5 class="card-title">{{ video.title }}</h5>
+                    <p class="card-text">{{ video.description }}</p>
+                    <small class="text-muted">Posted on {{ video.created_at|format_datetime }}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

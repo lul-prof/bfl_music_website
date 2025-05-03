@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Manage Music</h1>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Upload Music</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="artist" class="form-label">Artist</label>
+                            <input type="text" class="form-control" id="artist" name="artist" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="album" class="form-label">Album</label>
+                            <input type="text" class="form-control" id="album" name="album">
+                        </div>
+                        <div class="mb-3">
+                            <label for="audio_file" class="form-label">Audio File</label>
+                            <input type="file" class="form-control" id="audio_file" name="audio_file" accept="audio/*" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cover_image" class="form-label">Cover Image</label>
+                            <input type="file" class="form-control" id="cover_image" name="cover_image" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload Music</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Music List</h4>
+                </div>
+                <div class="card-body">
+                    {% for track in music_list %}
+                    <div class="admin-card">
+                        <div class="row">
+                            <div class="col-md-3">
+                                {% if track.cover_image %}
+                                <img src="{{ track.cover_image }}" alt="{{ track.title }}" class="img-fluid">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-9">
+                                <h5>{{ track.title }}</h5>
+                                <p><strong>Artist:</strong> {{ track.artist }}</p>
+                                <p><strong>Album:</strong> {{ track.album }}</p>
+                                <audio controls class="w-100">
+                                    <source src="{{ track.file_url }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                          
+                                <div class="mt-2">
+                                    <a href="{{ url_for('admin.delete_music', id=track.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                                </div>
+                        
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

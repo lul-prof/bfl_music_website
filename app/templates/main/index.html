@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero text-center py-5">
+    <h1>Welcome to BFL MUSIC AND EVENTS</h1>
+    <p class="lead">Discover the best in music and entertainment</p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Latest Music</h2>
+            <div class="row">
+                {% for track in music %}
+                <div class="col-md-4 mb-4">
+                    <div class="music-card">
+                        <img src="{{ track.cover_image }}" alt="{{ track.title }}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ track.title }}</h5>
+                            <p class="card-text">{{ track.artist }}</p>
+                            <audio class="audio-player w-100" controls>
+                                <source src="{{ track.file_url }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <h2>Latest News</h2>
+            {% for item in news %}
+            <div class="news-item mb-3">
+                <h5>{{ item.title }}</h5>
+                <p>{{ item.content[:200] }}...</p>
+                <small class="text-muted">{{ item.created_at|format_datetime }}</small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <h2>Featured Videos</h2>
+        {% for video in videos %}
+        <div class="col-md-4 mb-4">
+            <div class="video-container">
+                <iframe src="{{ video.video_url }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <h5 class="mt-2">{{ video.title }}</h5>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
