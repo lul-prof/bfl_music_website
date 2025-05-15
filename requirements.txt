@@ -8,6 +8,6 @@ Flask-Migrate==3.1.0
 PyJWT==2.1.0
 python-dotenv==0.19.0
 requests==2.26.0
-python-mpesa==1.0.0
+python-mpesa==0.1.10
 paypalrestsdk==1.13.1
 gunicorn==22.0.0
